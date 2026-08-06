@@ -21,7 +21,7 @@ let ordersNew = ""
 selectedProducts.forEach(product => {
         ordersNew += `
                 <div class="div-img-orders">
-                    <div class="div-item-orders">
+                    <div class="div-item-orders" data-id="${product.id}">
                         <img src="${product.src}" alt="${product.name}">
                         <p class="product-orders">${product.name}</p>
                         <b>R$ ${product.price.toFixed(2)}</b>

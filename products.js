@@ -90,7 +90,6 @@ const products = [
             {id: 40, name: "Anéis de cebola empanados", price: 3.50, category: "Adicionais"},
             {id: 41, name: "Bacon em fatias", price: 5.00, category: "Adicionais"},
             {id: 42, name: "Catupiry", price: 3.50, category: "Adicionais"},
-            {id: 43, name: "Cebola Caramelizada", price: 3.50, category: "Adicionais"},
             {id: 44, name: "Cebola Caramelizada", price: 0.50, category: "Adicionais"},
             {id: 45, name: "Frango Empanado 120g", price: 10.00, category: "Adicionais"},
             {id: 46, name: "Frango Empanado 120g + Catupiry", price: 12.00, category: "Adicionais"},

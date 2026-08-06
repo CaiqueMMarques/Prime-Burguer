@@ -1,6 +1,6 @@
 
 const aside = document.querySelector(".principle-card");
-const sections = document.querySelectorAll(".one-product");
+const sections = document.querySelectorAll(".one-product, .div-item-orders");
 const body = document.querySelector("body");
 
 aside.addEventListener("click", (event) => {
@@ -44,7 +44,7 @@ aside.addEventListener("click", (event) => {
 
 sections.forEach(section => {
     section.addEventListener("click", (event) => {
-        const clickedProduct = event.target.closest(".one-product");
+        const clickedProduct = event.target.closest(".one-product, .div-item-orders");
         if (!clickedProduct) return;
         const productId = Number(clickedProduct.dataset.id);
         let selectProduct = null; 
@@ -119,7 +119,7 @@ sections.forEach(section => {
                         </button>
                         <h2 class= "card-title">${selectProduct.name}</h2>
                     </div>
-                        <p class= "card-description">${selectProduct.description}</p>
+                        <p class= "card-description">${selectProduct.description ?? ""}</p>
                 </div>
                 <div class="add-products-to-cart">
                     <div class="products-one">
