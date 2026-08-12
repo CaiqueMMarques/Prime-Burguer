@@ -30,9 +30,9 @@ const products = [
     {
         nome: "MilkShakes",
         produtos: [
-            { id: 34, name: "Shake Morango", price: 14.00, category: "MilkShakes", description: "Sorvete de morango + Leite + Calda de morango", src: "./food/shake-morango.png" },
-            { id: 35, name: "Shake Negresco", price: 14.00, category: "MilkShakes", description: "Sorvete de baunilha + Leite + Oreo. + Calda de chocolate", src: "./food/shake-negresco.png" },
-            {id: 36, name: "Shake Nutella", price: 14.00, category: "MilkShakes", description: "Sorvete de baunilha + Leite + Nutella", src: "./food/shake-nutella.png"},
+            { id: 34, name: "Shake Morango", price: 14.00, price400ml: 17.00, category: "MilkShakes", description: "Sorvete de morango + Leite + Calda de morango", src: "./food/shake-morango.png" },
+            { id: 35, name: "Shake Negresco", price: 14.00, price400ml: 17.00, category: "MilkShakes", description: "Sorvete de baunilha + Leite + Oreo. + Calda de chocolate", src: "./food/shake-negresco.png" },
+            {id: 36, name: "Shake Nutella", price: 14.00, price400ml: 17.00, category: "MilkShakes", description: "Sorvete de baunilha + Leite + Nutella", src: "./food/shake-nutella.png"},
         ]
     },
     {
