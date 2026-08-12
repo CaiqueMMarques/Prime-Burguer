@@ -40,6 +40,8 @@ products.forEach(category => {
     productsDiv.classList.add("products");
 
     const cards = category.produtos.map(produto =>{
+        const prefixoPreço = category.nome === "MilkShakes" ? "A partir de R$ " : "R$";
+
         return `
             <div class="one-product" data-id="${produto.id}">
 
@@ -50,7 +52,7 @@ products.forEach(category => {
 
                     <p>${produto.description ?? ""}</p>
 
-                    <b>R$ ${produto.price.toFixed(2)}</b>
+                    <b>${prefixoPreço} ${produto.price.toFixed(2)}</b>
                 </div>
 
             </div>
