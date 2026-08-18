@@ -410,6 +410,7 @@ b {
 }
 .main-content {
     padding: 10px 20px 0 20px;
+    height: 100%;
 }
 .add-option {
     width: 155px;
@@ -512,4 +513,46 @@ b {
 .button-exit:active {
     transition: 0.1s ease;
     transform: scale(0.8);
+}
+.container {
+    width: 100%;
+    height: 60%;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    padding-top: 40px;
+}
+.container-price-description-to-milk {
+    width: 100%;
+    height: 70%;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.div-price-description-to-milk {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.button-to-milk {
+    width: 60px;
+    height: 60px;
+    background: #FFB347;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    font-weight: 700;
+    color: #ffffff;
+}
+.description-to-milk {
+    margin: 8px 0;
+    color: #F5E6D3;
+}
+.price-to-milk {
+    color: #F5E6D3;
+    font-weight: 600;
 }
