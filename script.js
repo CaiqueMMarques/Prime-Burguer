@@ -32,6 +32,8 @@ selectedProducts.forEach(product => {
 
 
 products.forEach(category => {
+    category.produtos = category.produtos.filter(produto => produto.id !== null);
+    if (category.produtos.length === 0) return;
 
     const categoryTitle = document.createElement("h3")
     categoryTitle.innerHTML = category.nome;
