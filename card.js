@@ -4,6 +4,14 @@ const sections = document.querySelectorAll(".one-product, .div-item-orders");
 const body = document.querySelector("body");
 
 aside.addEventListener("click", (event) => {
+    const exitButton = event.target.closest(".button-exit");
+    if (exitButton) {
+        aside.classList.add("hidden");
+        body.style.overflowY = "auto";
+        aside.innerHTML = "";
+        return;
+    }
+
     const addOptionButton = event.target.closest(".button-svg");
     if (addOptionButton) {
         const product = addOptionButton.closest(".products-info");
