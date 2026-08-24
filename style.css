@@ -556,3 +556,25 @@ b {
     color: #F5E6D3;
     font-weight: 600;
 }
+.card-opinion {
+    width: 100%;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.opinion-input {
+    width: 90%;
+    height: 80px;
+    background: transparent;
+    border: 1px solid #FFB347;
+    outline: none;
+    color: #F5E6D3;
+    padding-left: 15px;
+    padding-bottom: 20px;
+    border-radius: 6px;
+}
+.opinion-input::placeholder {
+    color: #B8937E;
+}
