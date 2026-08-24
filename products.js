@@ -63,9 +63,9 @@ const products = [
     {
         nome: "Molhos",
         produtos: [
-            {id: 5, name: "Barbecue", price: 1.50, category: "Molhos", vegan: false, src: "./food/Barbecue.png"},
-            {id: 26, name: "Maionese de alho", price: 2.00, category: "Molhos", vegan: false, src: "./food/maionese-de-alho.png"},
-            {id: 27, name: "Maionese verde", price: 2.00, category: "Molhos", vegan: false, src: "./food/maionese-verde.png"},
+            {id: 5, name: "Barbecue", price: 1.50, category: "Molhos", vegan: false, description: "Molho agridoce", src: "./food/Barbecue.png"},
+            {id: 26, name: "Maionese de alho", price: 2.00, category: "Molhos", vegan: false, description: "Nossa maionese tradicional e mais amada da casa! Feita com alho assado.",src: "./food/maionese-de-alho.png"},
+            {id: 27, name: "Maionese verde", price: 2.00, category: "Molhos", vegan: false, description: "Feita com coentro e cebolinha, amada por muitos !", src: "./food/maionese-verde.png"},
             {id: 32, name: "Piscina de cheddar e bacon", price: 12.00, category: "Molhos", vegan: false, description: "Nosso tradicional molho cheddar com bacon triturado, perfeito para mergulhar seu sanduiche ou suas fritas", src: "./food/piscina-de-cheddar-e-bacon.png"},
         
         ]
