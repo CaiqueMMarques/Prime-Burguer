@@ -11,6 +11,7 @@ imageLupa.addEventListener("click", () => {
 imageX.addEventListener("click", () => {
     inputLogoImg.style.display = "none";
     imageX.style.display = "none";
+    inputLogoImg.value = "";
 })
 
 

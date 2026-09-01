@@ -3,6 +3,25 @@ const aside = document.querySelector(".principle-card");
 const sections = document.querySelectorAll(".one-product, .div-item-orders");
 const body = document.querySelector("body");
 
+function updateCardTotal(card) {
+    const quantitySpan = card.querySelector(".number-bottom");
+    const priceElement = card.querySelector(".price-to-card");
+    const basePrice = Number(priceElement.dataset.basePrice);
+    const quantity = Number(quantitySpan.textContent);
+
+    let extrasTotal = 0;
+    card.querySelectorAll(".products-info").forEach(row => {
+        const controls = row.querySelector(".add-more-products");
+        if (!controls || controls.classList.contains("hidden")) return;
+
+        const priceSpan = row.querySelector(".price-product");
+        const numberSpan = row.querySelector(".number-for-products");
+        extrasTotal += Number(priceSpan.dataset.basePrice) * Number(numberSpan.textContent);
+    });
+
+    priceElement.textContent = `R$ ${((basePrice * quantity) + extrasTotal).toFixed(2)}`;
+}
+
 aside.addEventListener("click", (event) => {
     const exitButton = event.target.closest(".button-exit");
     if (exitButton) {
@@ -18,6 +37,7 @@ aside.addEventListener("click", (event) => {
         const controls = product.querySelector(".add-more-products");
         addOptionButton.classList.add("hidden");
         controls.classList.remove("hidden");
+        updateCardTotal(addOptionButton.closest(".card"));
         return;
     }
 
@@ -25,9 +45,15 @@ aside.addEventListener("click", (event) => {
     if (moreButton) {
         const product = moreButton.closest(".products-info");
         const numberProductsSpan = product.querySelector(".number-for-products");
+        const priceSpan = product.querySelector(".price-product");
+        const basePrice = Number(priceSpan.dataset.basePrice);
+
         let numberProducts = Number(numberProductsSpan.textContent);
         numberProducts += 1;
         numberProductsSpan.textContent = numberProducts;
+        priceSpan.textContent = `R$ ${(basePrice * numberProducts).toFixed(2)}`;
+
+        updateCardTotal(moreButton.closest(".card"));
         return;
     }
 
@@ -37,16 +63,46 @@ aside.addEventListener("click", (event) => {
         const addButton = product.querySelector(".button-svg");
         const controls = product.querySelector(".add-more-products");
         const numberProductsSpan = product.querySelector(".number-for-products");
+        const priceSpan = product.querySelector(".price-product");
+        const basePrice = Number(priceSpan.dataset.basePrice);
 
         let numberProducts = Number(numberProductsSpan.textContent);
         numberProducts -= 1;
         numberProductsSpan.textContent = numberProducts;
+        priceSpan.textContent = `R$ ${(basePrice * numberProducts).toFixed(2)}`;
 
         if (numberProducts === 0) {
             controls.classList.add("hidden");
             addButton.classList.remove("hidden");
             numberProductsSpan.textContent = "1";
+            priceSpan.textContent = `R$ ${basePrice.toFixed(2)}`;
         }
+
+        updateCardTotal(lessButton.closest(".card"));
+        return;
+    }
+
+    const increaseButton = event.target.closest(".button-somar");
+    if (increaseButton) {
+        const card = increaseButton.closest(".card");
+        const quantitySpan = card.querySelector(".number-bottom");
+        let quantity = Number(quantitySpan.textContent);
+        quantity += 1;
+        quantitySpan.textContent = quantity;
+        updateCardTotal(card);
+        return;
+    }
+
+    const decreaseButton = event.target.closest(".button-subtrair");
+    if (decreaseButton) {
+        const card = decreaseButton.closest(".card");
+        const quantitySpan = card.querySelector(".number-bottom");
+        let quantity = Number(quantitySpan.textContent);
+        if (quantity === 1) return;
+        quantity -= 1;
+        quantitySpan.textContent = quantity;
+        updateCardTotal(card);
+        return;
     }
 });
 
@@ -83,7 +139,7 @@ sections.forEach(section => {
                 <div class="products-info">
                     <p class="one-option">${produto.name}</p>
                     <div class="add-option">
-                        <p class="one-option price-product">R$ ${produto.price.toFixed(2)}</p>
+                        <p class="one-option price-product" data-base-price="${produto.price.toFixed(2)}">R$ ${produto.price.toFixed(2)}</p>
                         <div class="add-more-products hidden">
                             <button class="svg-button menos">
                                 <svg class="svg-less" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24.00 24.00" xml:space="preserve" stroke="#FFB347" stroke-width="0.00024000000000000003"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.384"></g><g id="SVGRepo_iconCarrier"> <style type="text/css"> .st0{fill:none;} </style> <path d="M12,2C6.5,2,2,6.5,2,12s4.5,10,10,10s10-4.5,10-10S17.5,2,12,2z M6.1,13v-2H18v2H6.1z"></path> <rect class="st0" width="24" height="24"></rect> </g></svg>
@@ -113,7 +169,7 @@ sections.forEach(section => {
             <div class="products-info">
                     <p class="one-option">${produto.name}</p>
                     <div class="add-option">
-                        <p class="one-option price-product">R$ ${produto.price.toFixed(2)}</p>
+                        <p class="one-option price-product" data-base-price="${produto.price.toFixed(2)}">R$ ${produto.price.toFixed(2)}</p>
                         <div class="add-more-products hidden">
                             <button class="svg-button menos">
                                 <svg class="svg-less" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24.00 24.00" xml:space="preserve" stroke="#FFB347" stroke-width="0.00024000000000000003"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.384"></g><g id="SVGRepo_iconCarrier"> <style type="text/css"> .st0{fill:none;} </style> <path d="M12,2C6.5,2,2,6.5,2,12s4.5,10,10,10s10-4.5,10-10S17.5,2,12,2z M6.1,13v-2H18v2H6.1z"></path> <rect class="st0" width="24" height="24"></rect> </g></svg>
@@ -221,7 +277,7 @@ sections.forEach(section => {
                         ${additionalSum}
                         <div class="card-fixed">
                             <div class= "card-price">
-                                <b class="price-to-card">R$ ${selectProduct.price.toFixed(2)}</b>
+                                <b class="price-to-card" data-base-price="${selectProduct.price}">R$ ${selectProduct.price.toFixed(2)}</b>
                                 <div class="button-more-or-less">
                                     <button class="button-subtrair btn">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M96 320C96 302.3 110.3 288 128 288L512 288C529.7 288 544 302.3 544 320C544 337.7 529.7 352 512 352L128 352C110.3 352 96 337.7 96 320z"/></svg>
@@ -268,7 +324,7 @@ sections.forEach(section => {
                 </div>
                 <div class="card-fixed">
                             <div class= "card-price">
-                                <b class="price-to-card">R$ ${selectProduct.price.toFixed(2)}</b>
+                                <b class="price-to-card" data-base-price="${selectProduct.price}">R$ ${selectProduct.price.toFixed(2)}</b>
                                 <div class="button-more-or-less">
                                     <button class="button-subtrair btn">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M96 320C96 302.3 110.3 288 128 288L512 288C529.7 288 544 302.3 544 320C544 337.7 529.7 352 512 352L128 352C110.3 352 96 337.7 96 320z"/></svg>
@@ -369,7 +425,7 @@ sections.forEach(section => {
                 </div>
                 <div class="card-fixed">
                             <div class= "card-price">
-                                <b class="price-to-card">R$ ${selectProduct.price.toFixed(2)}</b>
+                                <b class="price-to-card" data-base-price="${selectProduct.price}">R$ ${selectProduct.price.toFixed(2)}</b>
                                 <div class="button-more-or-less">
                                     <button class="button-subtrair btn">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M96 320C96 302.3 110.3 288 128 288L512 288C529.7 288 544 302.3 544 320C544 337.7 529.7 352 512 352L128 352C110.3 352 96 337.7 96 320z"/></svg>
@@ -406,7 +462,7 @@ sections.forEach(section => {
                         ${additionalSauces}
                         <div class="card-fixed">
                             <div class= "card-price">
-                                <b class="price-to-card">R$ ${selectProduct.price.toFixed(2)}</b>
+                                <b class="price-to-card" data-base-price="${selectProduct.price}">R$ ${selectProduct.price.toFixed(2)}</b>
                                 <div class="button-more-or-less">
                                     <button class="button-subtrair btn">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M96 320C96 302.3 110.3 288 128 288L512 288C529.7 288 544 302.3 544 320C544 337.7 529.7 352 512 352L128 352C110.3 352 96 337.7 96 320z"/></svg>
@@ -452,7 +508,7 @@ sections.forEach(section => {
             </div>
             <div class="card-fixed">
                 <div class="card-price">
-                    <b class="price-to-card">R$ ${selectProduct.price.toFixed(2)}</b>
+                    <b class="price-to-card" data-base-price="${selectProduct.price}">R$ ${selectProduct.price.toFixed(2)}</b>
                     <div class="button-more-or-less">
                         <button class="button-subtrair btn">
                             <svg xmlns="http://www.w3.org/2000/svg"
