@@ -13,6 +13,7 @@ function updateCardTotal(card) {
 
     let extrasTotal = 0;
     let extrasQuantity = 0;
+    let checkedTotal = 0;
     extraRows.forEach(row => {
         const controls = row.querySelector(".add-more-products");
         if (!controls || controls.classList.contains("hidden")) return;
@@ -35,7 +36,15 @@ function updateCardTotal(card) {
         addButton.classList.toggle("disabled-row", limitReached);
     });
 
-    priceElement.textContent = `R$ ${((basePrice * quantity) + extrasTotal).toFixed(2)}`;
+    extraRows.forEach(row => {
+        const checkbox = row.querySelector(".checkbox-one");
+        const priceSpan = row.querySelector(".price-option");
+        if (checkbox && checkbox.checked) {
+            checkedTotal += Number(priceSpan.dataset.basePrice);
+        }
+    });
+
+    priceElement.textContent = `R$ ${((basePrice * quantity) + extrasTotal + checkedTotal).toFixed(2)}`;
 }
 
 aside.addEventListener("click", (event) => {
@@ -120,6 +129,13 @@ aside.addEventListener("click", (event) => {
         quantitySpan.textContent = quantity;
         updateCardTotal(card);
         return;
+    }
+});
+
+aside.addEventListener("change", (event) => {
+    const optionCheckbox = event.target.closest(".one-checkbox");
+    if (optionCheckbox) {
+        updateCardTotal(optionCheckbox.closest(".card"));
     }
 });
 
@@ -211,8 +227,8 @@ sections.forEach(section => {
                         <p class="one-option">${product.name}</p>
                     </div>
                     <label class="one-checkbox" for="cbx5">
-                        <p class="one-option">R$ ${product.price.toFixed(2)}</p>
-                        <input type="checkbox" name="fritas" id="cbx">
+                        <p class="one-option price-option" data-base-price="${product.price}">R$ ${product.price.toFixed(2)}</p>
+                        <input type="checkbox" name="fritas" id="cbx" class="checkbox-one">
                     </label>
                 </div> 
         `
