@@ -9,14 +9,30 @@ function updateCardTotal(card) {
     const basePrice = Number(priceElement.dataset.basePrice);
     const quantity = Number(quantitySpan.textContent);
 
+    const extraRows = card.querySelectorAll(".products-info");
+
     let extrasTotal = 0;
-    card.querySelectorAll(".products-info").forEach(row => {
+    let extrasQuantity = 0;
+    extraRows.forEach(row => {
         const controls = row.querySelector(".add-more-products");
         if (!controls || controls.classList.contains("hidden")) return;
 
         const priceSpan = row.querySelector(".price-product");
         const numberSpan = row.querySelector(".number-for-products");
         extrasTotal += Number(priceSpan.dataset.basePrice) * Number(numberSpan.textContent);
+        extrasQuantity += Number(numberSpan.textContent);
+    });
+
+    const limitReached = extrasQuantity >= 5;
+    extraRows.forEach(row => {
+        const controls = row.querySelector(".add-more-products");
+        const addButton = row.querySelector(".button-svg");
+        if (!controls || !addButton) return;
+
+        const isActive = !controls.classList.contains("hidden");
+        if (isActive) return;
+
+        addButton.classList.toggle("disabled-row", limitReached);
     });
 
     priceElement.textContent = `R$ ${((basePrice * quantity) + extrasTotal).toFixed(2)}`;
@@ -33,6 +49,7 @@ aside.addEventListener("click", (event) => {
 
     const addOptionButton = event.target.closest(".button-svg");
     if (addOptionButton) {
+        if (addOptionButton.classList.contains("disabled-row")) return;
         const product = addOptionButton.closest(".products-info");
         const controls = product.querySelector(".add-more-products");
         addOptionButton.classList.add("hidden");
